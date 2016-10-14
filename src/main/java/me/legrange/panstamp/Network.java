@@ -14,6 +14,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.legrange.panstamp.definition.DeviceDefinition;
+import me.legrange.panstamp.definition.RegisterDefinition;
+import me.legrange.panstamp.devicestore.MemoryStore;
 import me.legrange.swap.MessageListener;
 import me.legrange.swap.SwapException;
 import me.legrange.swap.SwapModem;
@@ -50,6 +52,28 @@ public final class Network implements AutoCloseable {
     }
 
     /**
+     * Create a new serial network (network attached to a serial port) with the
+     * given port and speed, and with the default device library and data store.
+     *
+     * @param port The serial port to open, for example COM1 or /dev/ttyS0
+     * @param baud The speed at which to open it, for example 34800
+     * @param lib The device library used to lookup device definitions.
+     * @param store The device store used to lookup device caching information.
+     * @return The newly created network.
+     * @throws me.legrange.panstamp.NetworkException Thrown if there is a
+     * problem creating the network.
+     */
+    public static Network openSerialwithLibraryAndStore(String port, int baud, 
+    		DeviceLibrary lib, DeviceStateStore store) throws NetworkException {
+        SerialModem sm = new SerialModem(port, baud);
+        Network nw = create(sm);
+        nw.setDeviceLibrary(lib);
+        nw.setDeviceStore(store);
+        nw.open();
+        return nw;
+    }
+
+    /**
      * Create a new TCP/IP network (network attached to a remote TCP service)
      * with the given host and port, and with the default device library and
      * data store.
@@ -79,6 +103,24 @@ public final class Network implements AutoCloseable {
     }
 
     /**
+     * Create a new network with the given pre-existing SWAP modem.
+     *
+     * @param port The serial port to open, for example COM1 or /dev/ttyS0
+     * @param baud The speed at which to open it, for example 34800
+     * @param lib The device library used to lookup device definitions.
+     * @param store The device store used to lookup device caching information.
+     * @return The newly created network.
+     */
+    public static Network create(String port, int baud, 
+    		DeviceLibrary lib, DeviceStateStore store) {
+        SerialModem sm = new SerialModem(port, baud);
+        Network nw = create(sm);
+        nw.setDeviceLibrary(lib);
+        nw.setDeviceStore(store);
+        return nw;
+    }
+
+    /**
      * Check if the network is open (is connected to a panStamp network).
      *
      * @return True if the network is running.
@@ -95,6 +137,7 @@ public final class Network implements AutoCloseable {
      */
     public void open() throws NetworkException {
         modem.addListener(receiver);
+        loadStoredDevices();
         try {
             if (!modem.isOpen()) {
                 modem.open();
@@ -167,6 +210,22 @@ public final class Network implements AutoCloseable {
     }
 
     /**
+     * Load devices from store
+     *
+     */
+    public void loadStoredDevices() {
+    	store.getStoredAddresses()
+    		.stream()
+    		.forEach(addr -> {
+                try {
+                	this.addDevice(new PanStamp(this, addr));
+                } catch (NetworkException ex) {
+                    Logger.getLogger(Network.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    		});
+    }
+
+    /**
      * Add a user-created device to the panStamp network.
      *
      * @param dev The device to add.
@@ -182,6 +241,11 @@ public final class Network implements AutoCloseable {
                         }
                     }
                 }
+                
+                // register listener
+                if(this.defaultDeviceListener != null)
+                	dev.addListener(defaultDeviceListener);
+                
                 fireDeviceDetected(dev);    
         }
     }
@@ -255,14 +319,23 @@ public final class Network implements AutoCloseable {
     }
 
     /**
-     * Set the device store to use to lookup persisted device registers.
+     * Set the device store to use to lookup persisted device registers, and load stored devices
      *
      * @param store The store to use.
      */
     public void setDeviceStore(DeviceStateStore store) {
         this.store = store;
     }
-
+    
+    /**
+     * Set the default listener for all devices
+     * 
+     * @param Panstamp listener
+     */
+    public void setDefaultListener(PanStampListener listener) {
+    	this.defaultDeviceListener = listener;
+    }
+    
     /**
      * return the network ID for the network supported by this network
      *
@@ -491,6 +564,7 @@ public final class Network implements AutoCloseable {
 
     private final SwapModem modem;
     private final Receiver receiver;
+    private PanStampListener defaultDeviceListener;
     private DeviceLibrary lib;
     private DeviceStateStore store;
     private final Map<Integer, PanStamp> devices = new HashMap<>();

@@ -328,9 +328,8 @@ public final class PanStamp {
         Register reg = (Register) getRegister(msg.getRegisterID());
         boolean isNew = !reg.hasValue();
         reg.valueReceived(msg.getRegisterValue());
-        if (isNew) {
+//        if (isNew) 
             fireRegisterDetected(reg);
-        }
     }
 
     boolean hasExtendedAddress() {

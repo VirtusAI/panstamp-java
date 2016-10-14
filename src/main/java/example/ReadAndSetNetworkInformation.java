@@ -23,6 +23,10 @@ import me.legrange.panstamp.NetworkException;
  * @author gideon
  */
 public class ReadAndSetNetworkInformation extends Example {
+	
+	public static void main(String[] args) throws NetworkException, InterruptedException {
+//		new ReadAndSetNetworkInformation().run();
+	}
 
     @Override
     protected void doExampleCode(Network nw) throws NetworkException {
@@ -32,7 +36,7 @@ public class ReadAndSetNetworkInformation extends Example {
         System.out.printf("Network ID: %04x\n", nw.getNetworkId());
         System.out.printf("Device address: %d\n", nw.getDeviceAddress());
         // 
-        nw.setNetworkId(0x1234);
+        //nw.setNetworkId(0x1234);
     }
     
     

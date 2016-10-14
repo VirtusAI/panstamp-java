@@ -1,5 +1,7 @@
 package me.legrange.panstamp;
 
+import java.util.Set;
+
 /**
  * Application developers can implement this interface to add their preferred persistence
  * implementation to the library.
@@ -30,5 +32,10 @@ public interface DeviceStateStore {
      */
     void setRegisterValue(Register reg, byte[] value);
     
+    /** Get all stored addresses
+     * 
+     * @return The Set of addresses on the network
+     */
+    Set<Integer> getStoredAddresses();
     
 }

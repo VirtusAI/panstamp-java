@@ -1,20 +1,18 @@
 <?xml version="1.0"?>
 <device>
-  <developer>Miom</developer>
-  <product>Temperature/Humidity and Light sensor</product>
+  <developer>panStamp</developer>
+  <product>Temperature sensor</product>
   <pwrdownmode>true</pwrdownmode>
   <regular>
-    <reg name="Voltage supply" id="11">
+    <reg name="Sensor data" id="11">
       <endpoint name="Voltage" type="num" dir="inp">
         <size>2</size>
         <units>
           <unit name="V" factor="0.001" offset="0"/>
         </units>
       </endpoint>
-    </reg>
-    <reg name="Humidity, Temperature and Light" id="12">
       <endpoint name="Temperature" type="num" dir="inp">
-        <position>0</position>
+        <position>2</position>
         <size>2</size>
         <units>
           <unit name="C" factor="0.1" offset="-50"/>
@@ -22,19 +20,9 @@
           <unit name="K" factor="0.1" offset="223.15"/>
         </units>
       </endpoint>
-      <endpoint name="Humidity" type="num" dir="inp">
-        <position>2</position>
-        <size>2</size>
-        <units>
-          <unit name="%" factor="0.1" offset="0"/>
-        </units>
-      </endpoint>
-      <endpoint name="Light" type="num" dir="inp">
+      <endpoint name="Motion" type="bin" dir="inp">
         <position>4</position>
         <size>1</size>
-        <units>
-          <unit name="" factor="1" offset="0"/>
-        </units>
       </endpoint>
     </reg>
   </regular>

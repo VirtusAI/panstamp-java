@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <device>
-  <developer>Miom</developer>
-  <product>Temperature/Humidity and Light sensor</product>
+  <developer>panStamp</developer>
+  <product>3-Channel current meter</product>
   <pwrdownmode>true</pwrdownmode>
   <regular>
     <reg name="Voltage supply" id="11">
@@ -12,7 +12,7 @@
         </units>
       </endpoint>
     </reg>
-    <reg name="Humidity, Temperature and Light" id="12">
+    <reg name="Temperature" id="12">
       <endpoint name="Temperature" type="num" dir="inp">
         <position>0</position>
         <size>2</size>
@@ -22,18 +22,27 @@
           <unit name="K" factor="0.1" offset="223.15"/>
         </units>
       </endpoint>
-      <endpoint name="Humidity" type="num" dir="inp">
-        <position>2</position>
-        <size>2</size>
+    </reg>
+    <reg name="Current meter" id="13">
+      <endpoint name="Channel 1" type="num" dir="inp">
+        <position>0</position>
+        <size>4</size>
         <units>
-          <unit name="%" factor="0.1" offset="0"/>
+          <unit name="mA" factor="1" offset="0"/>
         </units>
       </endpoint>
-      <endpoint name="Light" type="num" dir="inp">
+      <endpoint name="Channel 2" type="num" dir="inp">
         <position>4</position>
-        <size>1</size>
+        <size>4</size>
         <units>
-          <unit name="" factor="1" offset="0"/>
+          <unit name="mA" factor="1" offset="0"/>
+        </units>
+      </endpoint>
+      <endpoint name="Channel 3" type="num" dir="inp">
+        <position>8</position>
+        <size>4</size>
+        <units>
+          <unit name="mA" factor="1" offset="0"/>
         </units>
       </endpoint>
     </reg>

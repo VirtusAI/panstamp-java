@@ -29,7 +29,7 @@ public class TestCompoundLibrary {
     
     public static void main(String...args) throws Exception {
         Network nw = null;
-        nw.setDeviceLibrary(new CompoundDeviceLibrary(new FileLibrary(new File("/usr/local/panstamp/definitions")), new ClassLoaderLibrary()));
+        nw.setDeviceLibrary(new CompoundDeviceLibrary(new FileLibrary(new File("devices")), new ClassLoaderLibrary()));
     }    
     
 }

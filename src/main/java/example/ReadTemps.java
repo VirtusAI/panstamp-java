@@ -16,6 +16,8 @@
 package example;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.legrange.panstamp.DeviceStateStore;
@@ -65,13 +67,26 @@ public class ReadTemps extends Example {
                 @Override
                 public void setRegisterValue(Register reg, byte[] value) {
                 }
+
+				@Override
+				public Set<Integer> getStoredAddresses() {
+					// TODO Auto-generated method stub
+					return null;
+				}
                 
             });
             
-            PanStamp ps = new PanStamp(nw,3);
+            PanStamp ps = new PanStamp(nw,17);
             nw.addDevice(ps);
             Thread.sleep(1000);
-            Register r = ps.getRegister(12);
+            List<Register> regs = ps.getRegisters();
+            for (Register register : regs) {
+				System.out.println(register.getId());
+			}
+            System.out.println(ps.getRegister(10).getEndpoints());
+            System.out.println(ps.getRegister(12).getEndpoints());
+           
+            Register r = ps.getRegister(10);
             final Endpoint<Double> e = r.getEndpoint("Temperature");
             e.setUnit("F");
             e.addListener(new EndpointListener<Double>() {

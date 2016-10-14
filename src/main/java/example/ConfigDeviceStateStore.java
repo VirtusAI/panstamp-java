@@ -3,6 +3,8 @@ package example;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
 import me.legrange.panstamp.DeviceStateStore;
 import me.legrange.panstamp.Register;
 
@@ -55,4 +57,10 @@ public class ConfigDeviceStateStore implements DeviceStateStore {
     private String formatBytes(byte val[]) {
         return new BigInteger(val).toString(16);
     }
+
+	@Override
+	public Set<Integer> getStoredAddresses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

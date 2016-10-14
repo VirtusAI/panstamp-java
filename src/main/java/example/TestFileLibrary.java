@@ -24,8 +24,8 @@ import me.legrange.panstamp.xml.FileLibrary;
  */
 public class TestFileLibrary {
         public static void main(String...args) throws Exception {
-            FileLibrary lib = new FileLibrary(new File("src/main/resources/devices"));
-        System.out.printf("has 1/4 : %s\n", lib.hasDeviceDefinition(1,4));
+            FileLibrary lib = new FileLibrary(new File("devices"));
+        System.out.printf("has 1/4 : %s\n", lib.getDeviceDefinition(1,1).getLabel());
     }
 
 }
