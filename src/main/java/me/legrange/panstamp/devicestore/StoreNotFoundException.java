@@ -8,13 +8,13 @@ import me.legrange.panstamp.definition.DefinitionException;
  * @since 1.0
  * @author Gideon le Grange https://github.com/GideonLeGrange *
  */
-final class ParseException extends DefinitionException {
+public final class StoreNotFoundException extends DefinitionException {
 
-    public ParseException(String message) {
+    public StoreNotFoundException(String message) {
         super(message);
     }
 
-    public ParseException(String message, Throwable cause) {
+    public StoreNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 

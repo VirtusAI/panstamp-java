@@ -2,10 +2,12 @@ package me.legrange.panstamp.devicestore;
 
 import java.io.File;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.mapdb.DB;
+import org.mapdb.DBException;
 import org.mapdb.DBMaker;
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
@@ -23,17 +25,27 @@ import me.legrange.panstamp.Register;
 
 public class PersistentMemoryStore implements DeviceStateStore {
 
-	public PersistentMemoryStore(File DBfile) throws ParseException {
+	public PersistentMemoryStore(File DBfile) throws StoreNotFoundException {
 		if(DBfile.exists() && (!DBfile.canRead() || !DBfile.canWrite())) {			
-			throw new ParseException(String.format("Cannot open/read/write '%s'.", DBfile.getAbsolutePath()));
+			throw new StoreNotFoundException(String.format("Cannot open/read/write '%s'.", DBfile.getAbsolutePath()));
 		} 
 		
-		this.db = DBMaker
+		try {
+			this.db = DBMaker
 				.fileDB(DBfile)
+				.transactionEnable()
+				.closeOnJvmShutdown()
 				.make();
+			
+		} catch (DBException e) {
+			Logger.getLogger(PersistentMemoryStore.class.getName()).log(Level.SEVERE, e.getMessage());
+			
+			// use in-memory database;	
+			this.db = DBMaker
+				.heapDB()
+				.make();
+		}
 		
-		
-				
 		this.cache = db
 					.hashMap("cache")
 					.keySerializer(Serializer.INT_ARRAY)
@@ -41,7 +53,7 @@ public class PersistentMemoryStore implements DeviceStateStore {
 					.createOrOpen();
 		
 		// safe closing
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> close()));
+		// Runtime.getRuntime().addShutdownHook(new Thread(() -> close()));
 	}
 
     @Override
@@ -79,11 +91,6 @@ public class PersistentMemoryStore implements DeviceStateStore {
     		return cache.get(new int[]{address, id});
     	} else
     		return null;
-    }
-    
-    private void close() {
-    	log.info("Closing persistent Device Store");
-    	this.db.close();
     }
 	
 	private DB db;

@@ -25,7 +25,10 @@ public abstract class Example {
     
     protected void run() throws NetworkException, InterruptedException, MalformedURLException {
 //        nw = Network.openSerial(PORT, BAUD);
-        nw = Network.create(PORT, BAUD, new FileLibrary(new File("src/main/resources/devices")),
+        nw = Network.create(
+        		PORT, 
+        		BAUD, 
+        		new FileLibrary(new File("src/main/resources/devices")),
         		new PersistentMemoryStore(new File("resources/store.db")));
         
         nw.setDefaultListener(new PanStampListener() {
