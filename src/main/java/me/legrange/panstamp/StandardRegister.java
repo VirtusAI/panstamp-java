@@ -14,7 +14,7 @@ import me.legrange.panstamp.definition.RegisterDefinition;
  * @since 1.0
  * @author Gideon le Grange https://github.com/GideonLeGrange *
  */
-final class StandardRegister implements RegisterDefinition {
+final public class StandardRegister implements RegisterDefinition {
 
     public static final StandardRegister PRODUCT_CODE = new StandardRegister(0, "Product code");
     public static final StandardRegister HARDWARE_VERSION = new StandardRegister(1, "Hardware version");

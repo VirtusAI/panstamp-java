@@ -9,7 +9,7 @@ import me.legrange.panstamp.definition.ParameterDefinition;
  * @since 1.0
  * @author Gideon le Grange https://github.com/GideonLeGrange *
  */
-final class StringParameter extends AbstractParameter<String> {
+final public class StringParameter extends AbstractParameter<String> {
 
     StringParameter(Register reg, ParameterDefinition epDef) {
         super(reg, epDef);

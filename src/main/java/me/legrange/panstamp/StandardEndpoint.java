@@ -17,7 +17,7 @@ import me.legrange.panstamp.definition.Unit;
  * @since 1.0
  * @author Gideon le Grange https://github.com/GideonLeGrange *
  */
-final class StandardEndpoint implements EndpointDefinition {
+final public class StandardEndpoint implements EndpointDefinition {
 
     public static final StandardEndpoint MANUFACTURER_ID = new StandardEndpoint(StandardRegister.PRODUCT_CODE, "Manufacturer Id", Direction.IN, Type.INTEGER, new Size(4, 0));
     public static final StandardEndpoint PRODUCT_ID = new StandardEndpoint(StandardRegister.PRODUCT_CODE, "Product Id", Direction.IN, Type.INTEGER, new Size(4, 0), new Position(4,0));
