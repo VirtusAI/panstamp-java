@@ -27,9 +27,13 @@ final public class StandardRegister implements RegisterDefinition {
     public static final StandardRegister NETWORK_ID = new StandardRegister(8, "Network ID");
     public static final StandardRegister DEVICE_ADDRESS = new StandardRegister(9, "Device address");
     public static final StandardRegister PERIODIC_TX_INTERVAL = new StandardRegister(10, "Periodic TX interval");
+    // Security registers
+    public static final StandardRegister UID = new StandardRegister(11, "Device UID");
+    public static final StandardRegister HARDWARE_PASSWORD = new StandardRegister(12, "Device Password");
     public static final StandardRegister[] ALL = {PRODUCT_CODE, HARDWARE_VERSION, FIRMWARE_VERSION, SYSTEM_STATE,
-        FREQUENCY_CHANNEL, SECURITY_OPTION, SECURITY_PASSWORD, SECURITY_NONCE, NETWORK_ID, DEVICE_ADDRESS, PERIODIC_TX_INTERVAL};
-    public static final StandardRegister MAX = PERIODIC_TX_INTERVAL;
+        FREQUENCY_CHANNEL, SECURITY_OPTION, SECURITY_PASSWORD, SECURITY_NONCE, NETWORK_ID, DEVICE_ADDRESS, PERIODIC_TX_INTERVAL,
+        UID, HARDWARE_PASSWORD};
+    public static final StandardRegister MAX = HARDWARE_PASSWORD;
 
     static {
         final StandardEndpoint[] all = StandardEndpoint.ALL;

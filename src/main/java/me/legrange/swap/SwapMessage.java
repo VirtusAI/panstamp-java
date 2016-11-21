@@ -24,7 +24,7 @@ public interface SwapMessage {
     }
     
     /** Maximum register ID for standard SWAP messages */
-    public static final int MAX_STANDARD_REGISTER = 10;
+    public static final int MAX_STANDARD_REGISTER = 12;
     
     Type getType();
 

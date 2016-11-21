@@ -4,7 +4,7 @@
   <product>Dual Temperature-Humidity sensor</product>
   <pwrdownmode>true</pwrdownmode>
   <regular>
-    <reg name="Voltage supply" id="11">
+    <reg name="Voltage supply" id="13">
       <endpoint name="Voltage" type="num" dir="inp">
         <size>2</size>
         <units>
@@ -12,7 +12,7 @@
         </units>
       </endpoint>
     </reg>
-    <reg name="Humidity and Temperature" id="12">
+    <reg name="Humidity and Temperature" id="14">
       <endpoint name="Temperature" type="num" dir="inp">
         <position>0</position>
         <size>2</size>

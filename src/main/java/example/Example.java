@@ -3,11 +3,13 @@ package example;
 import java.io.File;
 import java.net.MalformedURLException;
 
+import me.legrange.panstamp.EndpointNotFoundException;
 import me.legrange.panstamp.Network;
 import me.legrange.panstamp.NetworkException;
 import me.legrange.panstamp.PanStamp;
 import me.legrange.panstamp.PanStampListener;
 import me.legrange.panstamp.Register;
+import me.legrange.panstamp.devicestore.MemoryStore;
 import me.legrange.panstamp.devicestore.PersistentMemoryStore;
 import me.legrange.panstamp.xml.FileLibrary;
 
@@ -25,11 +27,17 @@ public abstract class Example {
     
     protected void run() throws NetworkException, InterruptedException, MalformedURLException {
 //        nw = Network.openSerial(PORT, BAUD);
+//        nw = Network.create(
+//        		PORT, 
+//        		BAUD, 
+//        		new FileLibrary(new File("src/main/resources/devices")),
+//        		new PersistentMemoryStore(new File("resources/store.db")));
+        
         nw = Network.create(
         		PORT, 
         		BAUD, 
         		new FileLibrary(new File("src/main/resources/devices")),
-        		new PersistentMemoryStore(new File("resources/store.db")));
+        		new MemoryStore());
         
         nw.setDefaultListener(new PanStampListener() {
 				
@@ -47,9 +55,29 @@ public abstract class Example {
 				
 				@Override
 				public void registerDetected(PanStamp dev, Register reg) {
-					if(reg.hasValue() && !reg.isStandard())
-						System.out.println(dev.getAddress() + " --> " + reg.getName());
-					else
+					if(reg.hasValue()) {
+						System.out.println(dev.getAddress() + " --> " + reg.getName() + " (" + reg.getId() + ")");
+						if(reg.getId() == 11)
+							try {
+								System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(reg.getEndpoint("Device UID").getValue().toString().getBytes()));
+							} catch (EndpointNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (NetworkException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						else if(reg.getId() == 12)
+							try {
+								System.out.println(reg.getEndpoint("Device Password").getValue().toString());
+							} catch (EndpointNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (NetworkException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					} else
 						System.out.println("Unkown Data");
 					
 				}

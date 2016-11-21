@@ -31,10 +31,13 @@ final public class StandardEndpoint implements EndpointDefinition {
     public static final StandardEndpoint NETWORK_ID = new StandardEndpoint(StandardRegister.NETWORK_ID, "Network ID", Direction.OUT, Type.INTEGER, new Size(2, 0));
     public static final StandardEndpoint DEVICE_ADDRESS = new StandardEndpoint(StandardRegister.DEVICE_ADDRESS, "Device address", Direction.OUT, Type.INTEGER);
     public static final StandardEndpoint PERIODIC_TX_INTERVAL = new StandardEndpoint(StandardRegister.PERIODIC_TX_INTERVAL, "Periodic Tx interval", Direction.OUT, Type.INTEGER, new Size(2, 0));
+    // Security registers
+    public static final StandardEndpoint UID = new StandardEndpoint(StandardRegister.UID, "Device UID", Direction.IN, Type.STRING, new Size(8));
+    public static final StandardEndpoint HARDWARE_PASSWORD = new StandardEndpoint(StandardRegister.HARDWARE_PASSWORD, "Device Password", Direction.IN, Type.STRING, new Size(8));
 
     public static final StandardEndpoint ALL[] = {MANUFACTURER_ID, PRODUCT_ID, HARDWARE_VERSION, FIRMWARE_VERSION,
         SYSTEM_STATE, FREQUENCY_CHANNEL, SECURITY_OPTION, SECURITY_PASSWORD, SECURITY_NONCE, NETWORK_ID, DEVICE_ADDRESS,
-        PERIODIC_TX_INTERVAL};
+        PERIODIC_TX_INTERVAL, UID, HARDWARE_PASSWORD};
     
     static {
 //        FIRMWARE_VERSION.setSize(new Size(4, 0));

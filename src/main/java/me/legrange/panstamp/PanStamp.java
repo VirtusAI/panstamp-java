@@ -326,8 +326,8 @@ public final class PanStamp {
      */
     void statusMessageReceived(SwapMessage msg) {
         Register reg = (Register) getRegister(msg.getRegisterID());
-        boolean isNew = !reg.hasValue();
         reg.valueReceived(msg.getRegisterValue());
+//        boolean isNew = !reg.hasValue();
 //        if (isNew) 
             fireRegisterDetected(reg);
     }
