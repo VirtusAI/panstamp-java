@@ -102,6 +102,38 @@ public final class PanStamp {
     }
 
     /**
+     * Return the UID
+     *
+     * @return The UID
+     * @throws NetworkException Thrown if there is a problem getting the network
+     * ID value
+     */
+    public String getUID() throws NetworkException {
+        Register reg = getRegister(StandardEndpoint.UID.getRegister().getId());
+        if (reg.hasValue()) {
+            Endpoint<String> ep = reg.getEndpoint(StandardEndpoint.UID.getName());
+            return ep.getValue();
+        }
+        return null;
+    }
+
+    /**
+     * Return the Password
+     *
+     * @return The Password
+     * @throws NetworkException Thrown if there is a problem getting the network
+     * ID value
+     */
+    public String getPassword() throws NetworkException {
+        Register reg = getRegister(StandardEndpoint.HARDWARE_PASSWORD.getRegister().getId());
+        if (reg.hasValue()) {
+            Endpoint<String> ep = reg.getEndpoint(StandardEndpoint.HARDWARE_PASSWORD.getName());
+            return ep.getValue();
+        }
+        return null;
+    }
+
+    /**
      * Set the address of the panStamp
      *
      * @param addr The address to set
