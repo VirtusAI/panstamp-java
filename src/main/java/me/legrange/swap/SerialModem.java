@@ -248,7 +248,7 @@ public final class SerialModem implements SwapModem {
     private ModemSetup setup;
     private final BlockingQueue<String> results = new LinkedBlockingQueue<>();
     private Reader reader;
-    private boolean running;
+    private volatile boolean running;
     private final List<MessageListener> listeners = new CopyOnWriteArrayList<>();
     private final int baud;
     private final String port;
