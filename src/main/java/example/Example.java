@@ -33,7 +33,7 @@ public abstract class Example {
 //        		BAUD, 
 //        		new FileLibrary(new File("src/main/resources/devices")),
 //        		new PersistentMemoryStore(new File("resources/store.db")));
-        
+
         nw = Network.create(
         		PORT, 
         		BAUD, 
