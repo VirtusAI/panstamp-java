@@ -108,10 +108,10 @@ public final class PanStamp {
      * @throws NetworkException Thrown if there is a problem getting the network
      * ID value
      */
-    public String getUID() throws NetworkException {
+    public byte[] getMAC() throws NetworkException {
         Register reg = getRegister(StandardEndpoint.UID.getRegister().getId());
         if (reg.hasValue()) {
-            Endpoint<String> ep = reg.getEndpoint(StandardEndpoint.UID.getName());
+            Endpoint<byte[]> ep = reg.getEndpoint(StandardEndpoint.UID.getName());
             return ep.getValue();
         }
         return null;

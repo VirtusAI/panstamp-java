@@ -2,6 +2,7 @@ package example;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 
 import me.legrange.panstamp.EndpointNotFoundException;
 import me.legrange.panstamp.Network;
@@ -56,7 +57,12 @@ public abstract class Example {
 				@Override
 				public void registerDetected(PanStamp dev, Register reg) {
 					if(reg.hasValue()) {
-						System.out.println(dev.getAddress() + " --> " + reg.getName() + " (" + reg.getId() + ")");
+						try {
+							System.out.println( Arrays.toString(dev.getMAC()) + " --> " + reg.getName() + " (" + reg.getId() + ")" );
+						} catch (NetworkException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						if(reg.getId() == 11)
 							try {
 								System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(reg.getEndpoint("Device UID").getValue().toString().getBytes()));
@@ -70,6 +76,16 @@ public abstract class Example {
 						else if(reg.getId() == 12)
 							try {
 								System.out.println(reg.getEndpoint("Device Password").getValue().toString());
+							} catch (EndpointNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (NetworkException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						else if(reg.getId() == 10)
+							try {
+								System.out.println("TX --> " + dev.getTxInterval());
 							} catch (EndpointNotFoundException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
