@@ -17,7 +17,7 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<developers>
 		<developer>
 			<id>GideonLeGrange</id>
@@ -153,12 +153,35 @@
 			<groupId>com.neuronrobotics</groupId>
 			<artifactId>nrjavaserial</artifactId>
 			<version>3.12.1</version>
-			
 		</dependency>
 		<dependency>
 			<groupId>org.mapdb</groupId>
 			<artifactId>mapdb</artifactId>
 			<version>3.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.nyholku</groupId>
+			<artifactId>purejavacomm</artifactId>
+			<version>edf997ce7e</version>
+			<exclusions>
+				<exclusion>
+					<groupId>net.java.dev.jna</groupId>
+					<artifactId>jna</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>jna</artifactId>
+			<version>4.2.2</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/jna-4.2.2.jar</systemPath>
+		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 </project>

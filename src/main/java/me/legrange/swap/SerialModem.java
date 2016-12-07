@@ -25,7 +25,7 @@ public final class SerialModem implements SwapModem {
 
     @Override
     public void open() throws SwapException {
-        com = ComPort.open(port, baud);
+        com = PureComPort.open(port, baud);
         running = true;
         reader = new Reader();
         reader.setDaemon(true);
@@ -243,7 +243,7 @@ public final class SerialModem implements SwapModem {
         INIT, DATA, COMMAND
     };
 
-    private ComPort com;
+    private PureComPort com;
     private Mode mode = Mode.DATA;
     private ModemSetup setup;
     private final BlockingQueue<String> results = new LinkedBlockingQueue<>();

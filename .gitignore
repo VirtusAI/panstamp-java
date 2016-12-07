@@ -6,6 +6,8 @@
 *.war
 *.ear
 
+!lib/jna-4.2.2.jar
+
 # Scala
 *.class
 *.log
