@@ -159,6 +159,7 @@ public final class Network implements AutoCloseable {
     public void close() throws ModemException {
         try {
             modem.close();
+            store.close();
         } catch (SwapException ex) {
             throw new ModemException(ex.getMessage(), ex);
 

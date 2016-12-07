@@ -38,6 +38,11 @@ public final class MemoryStore implements DeviceStateStore {
 	public Set<Integer> getStoredAddresses() {
 		return cache.keySet();
 	}
+
+	@Override
+	public void close() {
+	
+	}
     
     private Map<Integer, byte[]> mapForAddress(int address) {
         Map<Integer, byte[]> map = cache.get(address);

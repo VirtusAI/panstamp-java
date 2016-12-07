@@ -63,4 +63,10 @@ public class ConfigDeviceStateStore implements DeviceStateStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
 }

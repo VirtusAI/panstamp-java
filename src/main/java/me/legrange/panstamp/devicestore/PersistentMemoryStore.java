@@ -81,6 +81,11 @@ public class PersistentMemoryStore implements DeviceStateStore {
 					.map(tuple -> tuple[0])
 					.collect(Collectors.toSet());
 	}
+
+	@Override
+	public void close() {
+		this.db.close();		
+	}
     
     private byte[] mapForAddress(int address, int id) {
     	byte[] data = cache.get(new int[]{address, id});

@@ -73,6 +73,12 @@ public class ReadTemps extends Example {
 					// TODO Auto-generated method stub
 					return null;
 				}
+
+				@Override
+				public void close() {
+					// TODO Auto-generated method stub
+					
+				}
                 
             });
             

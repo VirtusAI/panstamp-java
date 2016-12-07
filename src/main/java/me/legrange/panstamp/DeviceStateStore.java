@@ -38,4 +38,10 @@ public interface DeviceStateStore {
      */
     Set<Integer> getStoredAddresses();
     
+    /** Get all stored addresses
+     * 
+     * @return The Set of addresses on the network
+     */
+    void close();
+    
 }
