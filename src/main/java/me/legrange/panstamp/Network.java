@@ -1,8 +1,6 @@
 package me.legrange.panstamp;
 
-import me.legrange.panstamp.xml.ClassLoaderLibrary;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,16 +11,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import me.legrange.panstamp.definition.DeviceDefinition;
-import me.legrange.panstamp.definition.RegisterDefinition;
 import me.legrange.panstamp.devicestore.MemoryStore;
+import me.legrange.panstamp.xml.ClassLoaderLibrary;
 import me.legrange.swap.MessageListener;
-import me.legrange.swap.SwapException;
-import me.legrange.swap.SwapModem;
-import me.legrange.swap.SwapMessage;
-import me.legrange.swap.UserMessage;
 import me.legrange.swap.ModemSetup;
 import me.legrange.swap.SerialModem;
+import me.legrange.swap.SwapException;
+import me.legrange.swap.SwapMessage;
+import me.legrange.swap.SwapModem;
+import me.legrange.swap.UserMessage;
 import me.legrange.swap.tcp.TcpModem;
 
 /**
@@ -144,6 +143,8 @@ public final class Network implements AutoCloseable {
             }
             getSetup();
         } catch (SwapException ex) {
+        	// close store
+        	store.close();
             throw new NetworkException(String.format("Error opening SWAP modem: %s", ex.getMessage()), ex);
         }
         fireNetworkOpened();

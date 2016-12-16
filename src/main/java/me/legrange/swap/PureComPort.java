@@ -5,13 +5,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 // IMPORTS
-import purejavacomm.*;
-import jtermios.Termios.*;
+import purejavacomm.CommPortIdentifier;
+import purejavacomm.NoSuchPortException;
+import purejavacomm.PortInUseException;
+import purejavacomm.SerialPort;
+import purejavacomm.UnsupportedCommOperationException;
 
 public final class PureComPort {
 	
-	private static final int MAX_TIMEOUT = 25500;
-
     /**
      * open the com port.
      *
@@ -75,9 +76,14 @@ public final class PureComPort {
      */
     void close() throws SerialException {
         try {
-            in.close();
-            out.close();
-            port.close();
+        	if(in != null)
+        		in.close();
+        	
+        	if(out != null)
+        		out.close();
+        	
+        	if(port != null)
+        		port.close();
         } catch (IOException ex) {
             throw new SerialException(ex.getMessage(), ex);
         }
