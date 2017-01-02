@@ -160,9 +160,9 @@
 			<version>3.0.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.nyholku</groupId>
-			<artifactId>purejavacomm</artifactId>
-			<version>edf997ce7e</version>
+		    <groupId>com.github.purejavacomm</groupId>
+		    <artifactId>purejavacomm</artifactId>
+		    <version>1.0.1.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
