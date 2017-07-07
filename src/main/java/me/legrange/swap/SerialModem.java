@@ -162,7 +162,7 @@ public final class SerialModem implements SwapModem {
                logger.log(Level.SEVERE, null, ex);
             }
         }
-        int count = 3;
+        int count = 10;
         while (count > 0) {
             if (tryCommandMode()) {
                 return;
